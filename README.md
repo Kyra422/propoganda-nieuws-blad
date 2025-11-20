@@ -1,0 +1,2 @@
+# propoganda-nieuws-blad
+PROPOGANDA IS REAL, NIET FAKE ALLES IS WAR PAS OP
