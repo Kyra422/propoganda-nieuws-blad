@@ -71,13 +71,133 @@
                     <h4 style="margin: 0 0 8px 0;">Wij zoeken een logo-ontwerper</h4>
                     <p style="margin: 0;">Ken jij iemand die een logo kan ontwerpen voor De Dagelijkse Blok? Stuur een bericht naar de redactie of reageer met een voorbeeldontwerp — beloning en credits inbegrepen.</p>
                 </div>
-            </main>
+            
+                <!-- Comments widget -->
+                <section class="comments" id="comments" data-edition="editie-5">
+                    <h4>Reacties op Editie #5</h4>
+                    <div class="comment-form">
+                        <div class="left">
+                            <input type="text" id="c-username" placeholder="Je username" maxlength="32">
+                            <div class="rating">
+                                <label>Beoordeel: </label>
+                                <div class="stars" id="c-stars">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                </div>
+                                <span class="avg-rating" id="avg-rating">—</span>
+                            </div>
+                            <textarea id="c-text" placeholder="Je reactie..."></textarea>
+                        </div>
+                        <div>
+                            <button id="c-submit" style="width:100%;padding:8px">Plaats reactie</button>
+                            <button id="c-clear" style="width:100%;padding:8px;margin-top:8px;background:#eee">Wis reacties (lokaal)</button>
+                        </div>
+                    </div>
+                    <div class="comment-list" id="comment-list"></div>
+                </section>
+
+                <!-- Gedeelde reacties via Utterances (GitHub Issues) -->
+                <section id="shared-comments" style="margin-top:20px;">
+                    <h4>Reacties (gedeeld)</h4>
+                    <div id="utterances_thread"></div>
+                </section>
+                <script src="https://utteranc.es/client.js"
+                    repo="Kyra422/propoganda-nieuws-blad"
+                    issue-term="pathname"
+                    label="comment"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+                </main>
 
             <footer>
                 <hr>
                 <p>&copy; 2025 Kyra. Voor Volk en Vaderland.</p>
             </footer>
         </div>
+    
+        <script>
+        // Comments widget (works with localStorage per-edition)
+        (function(){
+            function $(s, el){ return (el||document).querySelector(s); }
+            function $all(s, el){ return Array.from((el||document).querySelectorAll(s)); }
+
+            const container = document.getElementById('comments');
+            if(!container) return;
+            const edition = container.dataset.edition || 'edition';
+            const key = 'ddblok_comments_' + edition;
+
+            const usernameIn = $('#c-username', container);
+            const textIn = $('#c-text', container);
+            const starsEl = $('#c-stars', container);
+            const submitBtn = $('#c-submit', container);
+            const clearBtn = $('#c-clear', container);
+            const listEl = $('#comment-list', container);
+            const avgEl = $('#avg-rating', container);
+
+            let selectedRating = 5;
+
+            function load(){
+                try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ return []; }
+            }
+            function save(arr){ localStorage.setItem(key, JSON.stringify(arr)); }
+
+            function render(){
+                const comments = load();
+                listEl.innerHTML = '';
+                if(comments.length===0){ avgEl.textContent='—'; return; }
+                // average
+                const avg = (comments.reduce((s,c)=>s+(c.rating||0),0)/comments.length)||0;
+                avgEl.textContent = avg.toFixed(1) + ' ★ ('+comments.length+')';
+                comments.slice().reverse().forEach(c=>{
+                    const div = document.createElement('div'); div.className='comment';
+                    const meta = document.createElement('div'); meta.className='meta';
+                    meta.textContent = c.username + ' — ' + new Date(c.time).toLocaleString() + ' — ' + (c.rating||0) + '★';
+                    const txt = document.createElement('div'); txt.className='text'; txt.textContent = c.text;
+                    div.appendChild(meta); div.appendChild(txt);
+                    listEl.appendChild(div);
+                });
+            }
+
+            function setStars(v){
+                selectedRating = v;
+                $all('.star', starsEl).forEach(s=>{
+                    const val = Number(s.dataset.value||0);
+                    s.classList.toggle('filled', val<=v);
+                });
+            }
+
+            // bind star clicks
+            $all('.star', starsEl).forEach(s=>{
+                s.addEventListener('click', ()=> setStars(Number(s.dataset.value)));
+            });
+
+            submitBtn.addEventListener('click', ()=>{
+                const name = (usernameIn.value||'').trim();
+                const text = (textIn.value||'').trim();
+                if(!name){ alert('Vul je username in.'); usernameIn.focus(); return; }
+                if(!text){ alert('Schrijf een reactie.'); textIn.focus(); return; }
+                const comments = load();
+                comments.push({ username: name, text: text, rating: selectedRating, time: Date.now() });
+                save(comments);
+                usernameIn.value=''; textIn.value=''; setStars(5);
+                render();
+            });
+
+            clearBtn.addEventListener('click', ()=>{
+                if(!confirm('Alle reacties lokaal verwijderen?')) return;
+                localStorage.removeItem(key); render();
+            });
+
+            // init
+            setStars(5);
+            render();
+        })();
+        </script>
     </body>
     </html>
 

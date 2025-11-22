@@ -41,6 +41,47 @@
                     <p>De markt bij spawn opent binnenkort. Verkoop je grondstoffen en sluit deals met je medespelers.</p>
                 </article>
             </div>
+            
+            <!-- Comments widget -->
+            <section class="comments" id="comments" data-edition="editie-1">
+                <h4>Reacties op Editie #1</h4>
+                <div class="comment-form">
+                    <div class="left">
+                        <input type="text" id="c-username" placeholder="Je username" maxlength="32">
+                        <div class="rating">
+                            <label>Beoordeel: </label>
+                            <div class="stars" id="c-stars">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                            <span class="avg-rating" id="avg-rating">—</span>
+                        </div>
+                        <textarea id="c-text" placeholder="Je reactie..."></textarea>
+                    </div>
+                    <div>
+                        <button id="c-submit" style="width:100%;padding:8px">Plaats reactie</button>
+                        <button id="c-clear" style="width:100%;padding:8px;margin-top:8px;background:#eee">Wis reacties (lokaal)</button>
+                    </div>
+                </div>
+                <div class="comment-list" id="comment-list"></div>
+            </section>
+
+            <!-- Gedeelde reacties via Utterances (GitHub Issues) -->
+            <section id="shared-comments" style="margin-top:20px;">
+                <h4>Reacties (gedeeld)</h4>
+                <div id="utterances_thread"></div>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Kyra422/propoganda-nieuws-blad"
+                issue-term="pathname"
+                label="comment"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+            </script>
         </main>
 
         <footer>
