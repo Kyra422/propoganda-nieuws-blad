@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editie #2 - De Dagelijkse Blok</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="legacy-edition">
+    <a class="skip-link" href="#main">Naar de inhoud</a>
+    <nav class="site-nav" aria-label="Hoofdnavigatie">
+        <div class="nav-inner">
+            <a class="brand" href="../index.html" aria-label="De Dagelijkse Blok: voorpagina"><span class="brand-mark" aria-hidden="true">DB</span><span class="brand-name">De server. De verhalen.</span></a>
+            <div class="nav-links"><a href="../index.html">Voorpagina</a><a href="../edities/editie-9.html">Editie #9</a><a href="../edities/index.html">Archief</a></div>
+        </div>
+    </nav>
     <div class="container">
-        <header>
-            <div class="header-top">
-                <span class="date">19 November 2025</span>
-                <span class="edition">Editie #2</span>
-                <span class="price">Prijs: 1 Diamond</span>
+        <header class="masthead">
+            <p class="masthead-kicker">Het nieuwsblad van onze Minecraftserver</p>
+            <h1 class="masthead-title"><a href="../index.html">De Dagelijkse Blok<span class="period">.</span></a></h1>
+            <div class="masthead-bottom">
+                <p><time datetime="2025-11-19">19 november 2025</time></p>
+                <p class="masthead-motto">Onafhankelijk. Ongefilterd. Ongefundeerd.</p>
+                <p class="edition-stamp">Editie <span>#02</span></p>
+                <p class="masthead-price">Prijs: 1 diamond</p>
             </div>
-            <h1>DE DAGELIJKSE BLOK</h1>
-            <p class="subtitle">HET OFFICIËLE NIEUWS BLAD VAN DE SERVER</p>
-            <hr class="header-line">
-            <p style="text-align:center;"><a href="index.html">Bekijk het archief &rarr;</a> | <a href="../">Terug naar Home</a></p>
         </header>
 
-        <main>
+        <main id="main">
             <article class="featured">
                 <h2>VERRAAD! TWEEDYLEOPARD74 ONTMASKERD</h2>
                 <p class="meta">Geschreven door <span class="author">Ministerie van Waarheid</span></p>
@@ -67,7 +72,7 @@
                     <p>De prijs van brood is met 50% gestegen door een mislukte oogst in de community farms. De overheid adviseert om taart te eten.</p>
                 </article>
             </div>
-            
+
             <!-- Lokale comment-sectie verwijderd; gedeelde reacties via Utterances hieronder -->
 
             <!-- Gedeelde reacties via Utterances (GitHub Issues) -->
@@ -85,9 +90,10 @@
             </script>
         </main>
 
-        <footer>
-            <hr>
-            <p>&copy; 2025 Kyra. Voor Volk en Vaderland.</p>
+        <footer class="site-footer">
+            <p class="footer-name">De Dagelijkse Blok.</p>
+            <p>&copy; 2026 Kyra. Voor Volk en Vaderland. En een beetje voor de diamonds.</p>
+            <nav aria-label="Voetnavigatie"><a href="../index.html">Voorpagina</a><a href="../edities/index.html">Archief</a></nav>
         </footer>
     </div>
 </body>
